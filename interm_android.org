@@ -129,7 +129,147 @@
 
 * Stict Mode
   - introduce gingb
-  - detects things that'll make your app slow. like,,, assertIsFast
+  - detects things that'll make your app slow. like,,, assertIsFast, assertWontBlockUI
 
     
+* content providers
+  - sort-of sql
+** queries
+   getContentReslolver().query(table,columns,whereClause,paramValues,sortOrder);
+   while(cursor.moveToNext()){/*do stuff*/}
+   
+   cursor.close()
 
+*** common query : music
+    import static android.provider.BaseColumns._ID
+    import static android.provider.MediaStore.Audio.AudioColumns.ARTIST;
+
+*** Contacts
+    String[] projection {Phone.CONTACT_ID, Phone,NUMBER};
+    String selection = Data.IN_VISIBLE_GROUP + "=1 AND " + Phone.NUMBER + " LIKE ?";
+    String[] selectionArgs ={"%" +phoneSubStr + "%"};
+    Cursor phoneCursor = resolver.query(Phone,CONTENT_URI, projection, selection, selectionArgs, )
+
+** HTC 
+   common content providers is up to handset provider to implement
+   HTC leaks memory bad, for content providers, free cursors aggressivly
+
+* Scanning media
+  Let android know about media your app adds to the phone, so it shows up in gallery etc
+** MediaScannerConnection
+   MediaScannerConnectionClient
+     onMediaScannerConneccted() {
+       scanFile("/some/pah/SomeSong.mp3","media/mpeg3");
+
+* CursorAdapters
+  are neat
+
+* Use Other Apps
+  use an intent
+  - 
+    Intent videoChooser = new Intent(Intent.ACTION_GET_CONTENT);
+    videoChooser.setType("video/*");
+    statACtivityForresult(videoChooser, SELECTVIDEO);
+
+** HTC
+   returns results with URI in wrong place on some phones
+
+* Animation
+** Dissolve Animation
+   AlphaAnimation
+** Honeycomb -- Animators
+   ObjectAnimator anim = ObjectAnimator.ofFloat(backgroundImage, "alpha" 0.0f, 1.0f);
+   // needs to have getters and setters for alpha
+   .. in listener
+   onAnimationEnd(Animator animator){
+     nextSlide();  // assuming we're doing a slideshow
+   }
+
+
+* Compatability jars
+  some cases you can retroactivly add features of new OSs to old phones with compat jars
+
+
+* A/V Playback
+** Audio Preview
+   
+* Handler
+  Pipeline thread 
+  
+
+* Playing music
+  - make sure music stops playing onPause, onStop, onDestroy etc
+
+* Video playback
+** VideoView
+   VideoView video = (VideoView) findViewById(R.id.video);
+   video.setVideoURI(videoURI);
+   MediaController for pause, resume etc
+   
+* Take a pic
+** use intents
+   Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+   photoUri = getContentResolver().insert(
+     EXTERNA_CONTENT_URI, new ContentValues());
+   intent.putExtra(MediaStore.EXTRAOUTPUT, photoUri);
+   startActivityForREsult(intent,TAKE_PHOTO);
+
+ ** HTC 
+   doesn't conform with behavior for camera intents
+
+** EXIF
+   rotation detection
+   android stores raw image, puts tag to rotate in EXIF data
+   ExifInterface(somePath).getAttributeInt(TAG_ORIENTATION, 
+*** geotagging
+    exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE")
+
+    format ... "dd/1,mm/1,ss/1"
+
+**** LocationManager
+     bump uses location
+**** providers
+     query all providers, or say how accurate, how fast you want it,
+     one provider just caches previous results
+     GPS is accurate
+     network is most dependable
+     getLastKnownLocation(last) synchronous call , might be really old
+     requestLocationUpdates , can specify desired accuracy 
+
+     
+* uploading a photo to cloud
+** use apache http client
+   http post
+   MutlipartEntity = new MultipartEntity(HtpMultipartMode.BROWSER_COMPATIBLE);
+   ENTITY.ADDPART(IMAGE", new FileBody(img
+
+** IntentService
+   extends IntentService
+   protected void onHandleIntent(Intent i){
+   i.getStringExtra("file");
+
+
+
+   use intentservice due to process priority
+   less likely to be killed , if app is suspended, it becomse background process
+   service process > background process
+
+   give service a name in manifest, give it a colon as a prefix to let it know its a service process
+     however, you don't have to put it in a seperate process for this to work
+
+   
+* A/V recording
+** preview
+   show video that is recording
+   SurfaceView
+   Camera.open().setPreviewDisplay
+   MediaRecorder
+   mediaRecoder.setCamera(camera);
+   
+
+* Presenter
+** Book 
+   Android in practice
+** Android Bump
+** BumpCube
+** 
