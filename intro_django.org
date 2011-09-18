@@ -1,0 +1,47 @@
+
+* elevator pitch
+** high level 
+** python
+   - ruby allows DSL thus groovy isn't exactly ruby
+   - python not so much, pure python
+** framework
+   
+** encourages rapid developement
+   - agile compatable
+   - reward rapid iterations
+** encourage clean, pragmatic
+   
+
+* general python tips
+
+* learn about :
+  virtualenv
+  pip
+
+* Projects
+  is a project
+
+* getting started
+  
+  run : 
+  sudo easy_install django
+  django-admin.py startproject myproject
+  cd myproject
+  python manage.py runserver 
+
+  then edit settings.py, insert settings to connect to a database
+  or for a new database using sqlite, enter a valid path & filename where you have permissions to create a file
+  run
+  python manage.py syncdb
+
+
+* Apps
+
+* MVC 
+  (not really)
+  but has models, views analogously 
+
+* SQL cons
+  - tough (tedious)
+  - no source control
+  - DRY, not python
