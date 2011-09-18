@@ -1,0 +1,135 @@
+
+* detecting capabilities
+
+** gingerbread
+   can get device capabilities
+** pre gingerbread
+   - can't, but can wrap code so it won't blow : 
+    - 
+      have to use actual value not Build.VERSION_CODES.GINGERBREAD
+      if ( Build.VERSION.SDK_INGT >= 9 ) {
+      // ...
+      }
+*** propritary APIs 
+    can get device cap pre gingerbread
+
+* multimedia files
+  are just files
+
+* For embedding multimedia files
+** /res/raw
+
+   Resources res = this.getResources();
+   stream = res.openRawResource(R.raw.sunflower);
+   MediaPlayer.create(this, R.raw.constancy).start();
+** assets
+   MediaPlayer player 
+   AssetManageer mgr = getResources().getAssets();
+   
+** space
+   apk usually stores on internal memory
+   can specifiy in manifest
+*** store files on sdcard
+    File picturesDir = Environment.getExternalStoragePublicDircetory(Environment.DIRECTORY_PICTURES)
+
+* Images
+  #+BEGIN_SRC java
+  InputStream stream = new FileInputStream(imgFile);
+  Bitmap bm = BitmapFactory.decodeStream(stream);
+  
+  // calculate desired width and height
+  
+  ThumbnailUtils.extractThumbnail(bm,width,height)  /// maybe doesnt do what you think
+  Bitmap.createScaledBitmapbm, width, height // probably what you wanted
+  #+END_SRC
+
+** large images
+*** custome loader
+    decodeDownsizedBitmapStream 
+   
+
+    // build out your own options object, calculate bets downsamplesize
+    in = new FileinputStream(file)
+    Options options = new Options();
+    options.inSampleSize = 1 + getDownSampleSize(max(source.first, source.second), target);
+    return BitmapFactory.decodeStream(in, null, options);
+
+* Loading web pages
+  - don't ever use url.openStream
+
+  URL url = new URL(urlString);
+  
+** AsyncTask
+   yay!
+   fun to extend it
+
+  
+*** ArrayAdapter example
+    extending arrayadapter in a way that causes many asynctasks to be created
+    seems bad
+    actually this is in most cases OK
+
+*** Leaks
+    - contains implicit link to activity
+    - rotating screen causes new activity to be created 
+    - onPostExecute trys to hit old activity -> crash
+    - also prevent whole activity's views to not be able to be garbage collected
+**** getLastNonConfigurationInstance
+     #+ BEGIN_SRC java
+     onCreate () {
+       task = (LeakProofAsyncTask) getLastNonCOnfigurationInstance();
+       if (tast != null) { 
+         task.potentialLeac = this;
+       }
+     }
+     #+ END_SRC
+    
+  
+* caching
+** weak / soft refrences
+   - let GB know it can null object out, yet you still have ref
+   - used in server java for caching
+   - not reliable on android
+** weakhashmap
+   - useless as caching because keys are weak not values
+** MapMaker
+   - guava
+** LinkedHashMap
+   - good for implementing LRU style cache
+   - can define a max size (in number of elements)
+   - no automatic way to determine memory usage (sum of element's memory)
+   - recommendable way to do cache
+
+     class ImageCache extends LinkedHashMap<String, Bitmap>{
+
+** Disk Cache
+*** Context.getCacheDir()
+    - on flash memory, avoid for large cacehe
+*** SQLite
+    - also on internal flash memory
+*** Environment.getExternalStroage
+    - SDCard, best place for large objects
+    - a little slower 
+
+* Bitmaps & Heap
+  java.lang.OutOfMemoryError: bitmap size exceeds VM budget
+
+  - causes , relying on the GC to collect bitmaps...
+  - prior to gingb , bitmaps not on heap
+  - post gingb, theoritical bitmaps on heap can be GB but, 
+  - might have to manually tell GC to collect bitmaps
+
+* images and lists
+** placeholders
+   
+** viewholders
+   - point is to avoid unnessisiary calls to get vew by id
+   - findViewById is actually a slow operations, involves a treewalk
+   - use tags
+
+* Stict Mode
+  - introduce gingb
+  - detects things that'll make your app slow. like,,, assertIsFast
+
+    
+
