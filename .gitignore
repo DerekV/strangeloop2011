@@ -1,3 +1,6 @@
+#python
+*.pyc
+
 
 #ignore emacs locks and backup files
 *~
