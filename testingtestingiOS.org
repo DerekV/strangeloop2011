@@ -1,0 +1,70 @@
+
+* OCUnit
+  STAssertWithAccuracy
+  - can select tests to run 
+
+* GTM 
+  STAssertEqualSrings
+  - can run on simulator or device
+  - xcode integration
+  - can not choose which tests to run
+  - run from command line using xcodebuild
+** dubugging
+   disable the 'run script' build phase
+   add break point
+   run tests
+
+* GHUnit
+  - assertions simular to GTM 
+  - runs in seperate application 
+    - (need to initialize app delegate, run initialization, lifespan sequence etc)
+
+* iOS tests
+  can't be scripted on the device from command line? 
+
+* UISpec
+  - Need a duplicate app target
+** writing
+   UISpec protocol
+   
+** UIQuery
+   - Returns uiQuery objects that pass through to UIBiew
+
+     app.button (first button)
+     app.button.all all of the buttons
+     
+   - Dynamic calls produce warning
+
+** Expectations
+   - expectThat
+** running
+   duplicate your main.m
+
+   choose specs at runtime with specsAndExamples
+
+   iphonesim
+   
+   no intrisic way to reset to a known state to continue tests, so tests may fail later ,  they'll all fail
+
+
+* UIAutomation 
+  - simulator has accessability features misconfigured by default
+  - good , can simulate hardware messages
+  - can't be run from command line  
+*** instruments
+  - runs only in instruments
+  - can integrate with other instruments
+    - eg run with leaks,
+    - use for perfromance profiling
+
+* OCMock
+  - use niceMocks (vs regular mocks)
+  - declare your mock objects as id
+
+
+* Reccomendations
+  - GHUnit for units
+  - UIAutomaiton
+
+* didn't get to 
+  kif, frank
