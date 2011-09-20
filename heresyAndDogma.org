@@ -1,0 +1,30 @@
+
+
+* corba
+  binary, tended to break both sides of the app over minor changes
+
+* SOAP
+  - better but still had dependandancy problems, eg object names
+  - unnessisary complexity got added
+
+* oop
+  - "unconstrained freedom to create abstractions undermines reuse."
+  - abstraction boundry too high
+
+* REST+http
+** reusable because
+    - right level of abstractions, 
+    - constrained
+
+* rich domain model
+  encourages fewer, bigger services
+
+* Object-Relational Modeling
+  - mostly eliminate the need for SQL
+  - generate boilerplate cod
+  - Inefficient
+  - Objects are a poor fit for relational data.
+  - Not really efficient enough, especially for "big data".
+** needed 
+   minimize language impedance eg LINQ
+

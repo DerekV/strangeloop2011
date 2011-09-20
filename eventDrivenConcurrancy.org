@@ -1,0 +1,58 @@
+
+**
+
+** 
+
+
+
+* push vs pull
+  - pub/sub is push
+  - erlang is pull
+  
+* evens in clojure
+** never modify the event ...
+   closure has immutablility so this is no problem
+** closure is thread-agnostic
+   
+
+* wish list
+** support for push and pull
+** effcient
+** play nice with transactions
+
+* channels
+  reps a stream of meeages
+  - messages are consumed by callback
+  - if there are no calbacks, messages wait in the queue
+  - queue is transactional
+
+* unordered messages vs ordered
+  your option
+
+* closing channes
+  closed != drained
+** backpropagation
+   what happens when we close the rightmost channeL
+   
+* channels and seq
+** lazy sequence 
+   seqs imdopotent 
+** fork channels 
+   create a new channel that can be consumed without effecting the original channel
+   new channel can be closed without closing the orig
+   closing the orig closing the fork
+
+* splicing channels
+  
+
+* example
+  big broadcaster, many subscribers
+  basically, just map the flow with forks, splices
+
+* results channel
+  represents a single outcome
+  wait-for-result 
+  asynchronous contamination
+  (async (+ 2 (request-a-number)))
+
+* 
