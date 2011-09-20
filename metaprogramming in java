@@ -1,0 +1,56 @@
+
+* ASM 
+  library to generate bytecode
+
+* Tabpestry 
+  uses metaprogramming 
+
+* Plastic
+  sort of higher level library thatn ASM for "metaprogramming"   
+
+* Extending Methods 
+** MethodAdvice
+   Advise method to manage transaction commit
+   With advise
+   Declare class with interface PlasticClass, can make plastic method
+
+* With Transformations
+  somewhat bluring the line between compliation and runtime
+
+* Layers of Concerns
+  like logging, etc, 
+  can chain advice
+
+* Implement New Methods on the fly
+  eg you can add a method to get a hashcode for an object to the class 
+  (this could also be done with reflection... but that incures runtime penalty among other things)
+
+* Instantiating
+  can't just use new, because you'd get the non-plastified version of the class
+** instantiation framework
+   Class.forName("com.ex.something").getConstructor().getInstance 
+
+* Testing with Spock
+  basically, test the behavior not , eg, what methods are invoked ala mocks
+
+* "API != Interface"
+  API more like a contract
+  plastic allows you to bind a contract to your classes
+
+
+* random 
+  programming "Essence"
+
+* callbacks
+  happen against one instance of the conduit , for all instances of the plastic object
+  to work around, you generate a conduite per object 
+
+* Trinity
+** Bytecode manipulation
+** Annotations
+** Component Architecture
+
+
+* examples
+  https://github.com/hlship/plastic-demos
+  https://howardlweisship.com
