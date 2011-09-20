@@ -1,0 +1,35 @@
+Parsec
+
+* motivators
+** formal grammers are a lot of work
+** project integration,
+   - eg be able to use your normal programming langauge
+** used in a lot of languages
+** modular 
+   "TDD Friendly"
+
+
+* a parser is
+  a function that takes 5 parameters, the current state and the four other funtions
+  each of the four is a sort of state transition that gets called
+
+* eok
+  parser that consumes nothing, always OK
+  needed when you need to produce a value 
+
+* eerr
+  never OK
+
+* cok ceer eok eerr
+ 
+* hofs
+  create parsers from other parsers
+** many 
+   like *
+** option
+   |
+   
+
+* presenter
+   Nate Young
+  https://github.com/youngnh/parsatron
